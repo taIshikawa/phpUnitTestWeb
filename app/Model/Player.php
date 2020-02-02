@@ -10,6 +10,17 @@ namespace App\Model;
 class Player
 {
     const INIT_SCORE = 25000;
+    const BASE_SCORE_MULTIPLY = 4;
+    const LEADER_MULTIPLY = 1.5;
+    const MANGAN_SCORE = 8000;
+    const HANEMAN_SCORE = 12000;
+    const BAIMAN_SCORE = 16000;
+    const SANBAIMAN_SCORE = 24000;
+    const YAKUMAN_SCORE = 32000;
+    const MANGAN_LIMIT = 5;
+    const HANEMAN_LIMIT = 7;
+    const BAIMAN_LIMIT = 10;
+    const SANBAIMAN_LIMIT = 12;
 
     private $turn;//順番親から1,2,3,4となる
     private $score;
@@ -87,5 +98,53 @@ class Player
     public function getNestIsLeader(int $roundNum):bool
     {
         return ($this->turn === $roundNum);
+    }
+
+    /**
+     * 点数を取得計算
+     * @param int $hanPoint
+     * @param int $fuPoint
+     * @param bool $isLeader
+     * @return int
+     */
+    public function calcScore(int $hanPoint, int $fuPoint, bool $isLeader):int
+    {
+        $score = 0;
+        //親か子での倍率
+        $roleMultiply = ($isLeader ? self::LEADER_MULTIPLY : 1);
+
+        $baseMultiply = self::BASE_SCORE_MULTIPLY * $roleMultiply;
+        $manganScore = self::MANGAN_SCORE * $roleMultiply;
+
+        if (self::MANGAN_LIMIT <= $hanPoint) {
+            if (self::SANBAIMAN_LIMIT < $hanPoint) {
+                $score = self::YAKUMAN_SCORE;
+            } else if (self::BAIMAN_LIMIT < $hanPoint) {
+                $score = self::SANBAIMAN_SCORE;
+            } else if (self::HANEMAN_LIMIT < $hanPoint) {
+                $score = self::BAIMAN_SCORE;
+            } else if (self::MANGAN_LIMIT < $hanPoint) {
+                $score = self::HANEMAN_SCORE;
+            } else {
+                $score = self::MANGAN_SCORE;
+            }
+
+            return $score * $roleMultiply;
+        }
+
+        // 符 ✕ 4 ✕ (親なら1.5) ✕ 2の(翻+2)数乗 ＝ 点数
+        // 30符以上の1桁は切り上げる
+        if ($fuPoint > 30) {
+            $fuPoint = ceil($fuPoint);
+        }
+        $score = $fuPoint * $baseMultiply * pow(2, $hanPoint + 2);
+
+        //10の位を切り上げ
+        $score = ceil($score/100)*100;
+
+        if ($manganScore < $score) {
+            $score = $manganScore;
+        }
+        return $score;
     }
 }
