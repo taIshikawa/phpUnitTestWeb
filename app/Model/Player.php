@@ -102,6 +102,7 @@ class Player
 
     /**
      * 点数を取得計算
+     * TODO: 流石に分離したほうがよさそう
      * @param int $hanPoint
      * @param int $fuPoint
      * @param bool $isLeader
