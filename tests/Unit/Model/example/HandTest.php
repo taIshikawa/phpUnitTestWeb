@@ -1,8 +1,8 @@
 <?php
 
-namespace Tests\Unit;
+namespace Tests\Unit\Model\example;
 use PHPUnit\Framework\TestCase;
-use App\Model\Hand;
+use App\Model\example\Hand;
 
 class HandTest extends TestCase
 {

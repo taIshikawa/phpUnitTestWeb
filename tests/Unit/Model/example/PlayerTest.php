@@ -1,9 +1,9 @@
 <?php
 
-namespace Tests\Unit;
+namespace Tests\Unit\Model\example;
 
 use PHPUnit\Framework\TestCase;
-use App\Model\Player;
+use App\Model\example\Player;
 
 //https://qiita.com/rev84/items/12fbd16d210d6a86eff9
 

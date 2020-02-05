@@ -1,8 +1,8 @@
 <?php
 
-namespace Tests\Unit;
+namespace Tests\Unit\Model\example;
 
-use App\Model\PlayerScore;
+use App\Model\example\PlayerScore;
 use PHPUnit\Framework\TestCase;
 
 class PlayerScoreTest extends TestCase

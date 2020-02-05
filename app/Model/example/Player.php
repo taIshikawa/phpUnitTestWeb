@@ -1,7 +1,7 @@
 <?php
 
 
-namespace App\Model;
+namespace App\Model\example;
 
 //用語出展
 //https://perceptualmahjong.blog.ss-blog.jp/2010-10-08
