@@ -13,7 +13,7 @@ class CreatePointLog extends Migration
      */
     public function up()
     {
-        Schema::create('point_log', function (Blueprint $table) {
+        Schema::create('point_logs', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('player_id');
             $table->integer('turn');
@@ -34,6 +34,6 @@ class CreatePointLog extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('point_log');
+        Schema::dropIfExists('point_logs');
     }
 }
